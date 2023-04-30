@@ -1,0 +1,24 @@
+<page title="edit depart" toolbar="hidden" gravity="top" scrollable="false" id="enter-admin">
+    <frame layout="linear_horizontal" width="wrap_content" gravity = "center" margin_top="400">
+        <image src="../assets/resources/profileicon.jpg" width="25" height="25"></image>
+        <textInput id="username" text="" textColor="#000000" hint="شماره تفن خود را وارد کنید"  width="250"></textInput>
+        <frame  width="match_parent" layout="linear_vertical" height="match_parent" background="#FFF" >
+            <button textcolor="#FFDDCE"  background="#E64724" borderCornerRadius="10"
+                    width="250" onClick="dialog/btmdg">تست دیالوگ</button>
+        </frame>
+    </frame>
+    <include layout="enter-admin.js.appsan"/>
+</page>
+<bottomsheetdialog id="btmdg">
+    <frame layout="linear_vertical" width="75" height="75" gravity="center">
+        <image src="http://162.55.105.137:8080/api/public/dl/IPI8gq4o" width="match_parent" selfgravity="center">
+        </image>
+    </frame>
+    <frame layout="linear_vertical">
+        <text renderas="html" textcolor="#E64724" text="<b>به اپسان خوش آمدید<\b>" textsize="18" textalignment="center">
+        </text>
+    </frame>
+    <button text="تایید" borderCornerRadius="3" background="#E64724" onClick="app/closedialog">
+    </button>
+</bottomsheetdialog>
+<!--        ${Appsan.getBind('selectedTask')}-->

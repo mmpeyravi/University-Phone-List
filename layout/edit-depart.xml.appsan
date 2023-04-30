@@ -1,0 +1,7 @@
+<page title="edit depart" id="edit-depart">
+    <text id="task-id" text="${Appsan.getVariable('selectedTask').value}" textsize="18" textstyle="bold" width="wrap_content" gravity="center"
+          textcolor="#146B3A"/>
+
+    <include layout="edit-depart.js.appsan"/>
+
+</page>

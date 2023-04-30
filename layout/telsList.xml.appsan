@@ -1,0 +1,174 @@
+<page id="tels-list" title="todo" toolbar="hidden" gravity="top" scrollable="false" onshown="script/todo-script:init()">
+    <frame padding="0" margin="-5" height="match_parent" layout="linear_vertical" scrollable="true">
+
+        <!-- navbar -->
+        <frame layout="frame" width="match_parent" evenweight="false" reverse="true" gravity="right" background="white"
+               elevation="1">
+            <!--<imagebutton src="https://fileaps.appsan.ir/files/service-files/tipax/tipox-icons/1x/menu.png"
+                         layoutgravity="right" height="60" width="60" scaletype="fit_center"
+            />-->
+            <text id="list-title" margin_left="50"  text="لیست تلفن های دانشگاه" textsize="19" textstyle="bold" width="wrap_content" gravity="center"
+                  textcolor="#146B3A"/>
+            <image visibility="gone" id="add-depart-icon" margin_top="10" margin_right="350" src="https://img.icons8.com/external-bearicons-outline-color-bearicons/64/null/external-add-essential-collection-bearicons-outline-color-bearicons.png"
+                   onclick="dialog/btmdg-add-depart" borderCornerRadius="0" width="44" height="44" gravity="right" />
+            <image visibility="gone" id="add-admin-icon" margin_top="10" margin_right="280" src="https://img.icons8.com/external-inipagistudio-mixed-inipagistudio/64/null/external-add-distant-friend-inipagistudio-mixed-inipagistudio.png"
+                   onclick="dialog/btmdg-add-admin" borderCornerRadius="0" width="34" height="34" gravity="right" />
+
+            <!-- <imagebutton id="profileIcon" visibility="visible"
+                          src="https://fileaps.appsan.ir/files/service-files/tipax/dashboard/user.png"
+                          layoutgravity="left" margin="10" height="50" width="50" scaletype="fit_center"
+                          />-->
+        </frame>
+<!--        <image alpha="0.5" src = "https://s2.uupload.ir/files/library_sbu_pcn0.jpg"  scaletype ="fit_center"   width="450" height="450" margin_bottom="500" margin_top="50"></image>-->
+
+        <frame layout="linear_vertical" id="task-container">
+            <progressbar/>
+        </frame>
+
+    </frame>
+
+    <frame layout="linear_vertical" id="fab-container">
+
+    </frame>
+    <fab id="my-fab" src="https://img.icons8.com/external-itim2101-blue-itim2101/64/null/external-admin-devices-service-itim2101-blue-itim2101.png" margin="10" align="bottom_left" onclick="dialog/btmdg-enter-admin"/>
+
+    <include layout="telsList.js.appsan"/>
+    <include layout="enter-admin.xml.appsan"/>
+    <include layout="edit-depart.xml.appsan"/>
+
+</page>
+
+<bottomsheetdialog id="btmdg-edit-tel">
+    <frame layout="linear_vertical" width="75" height="75" gravity="center">
+        <image src="https://img.icons8.com/3d-plastilina/69/null/pencil--v2.png" width="match_parent" selfgravity="center">
+        </image>
+    </frame>
+    <frame layout="linear_vertical">
+        <text renderas="html" textcolor="#E64724" text="<b>ویرایش اطلاعات بخش<\b>" textsize="18" textalignment="center">
+        </text>
+        <textInput id="depart-name-input" text="" textColor="#000000" hint="نام بخش"  width="250"></textInput>
+        <textInput id="employee-input" text="" textColor="#000000" hint="نام مسئول"  width="250"></textInput>
+        <textInput id="telephone input" text="" textColor="#000000" hint="شماره تفن"  width="250"></textInput>
+        <text renderas="html" textcolor="#E64724" text="<br/>" textsize="18" textalignment="center">
+        </text>
+    </frame>
+    <button text="ذخیره و تایید" borderCornerRadius="3" background="#E64724" onClick="script/todo-script:doEdit()" >
+    </button>
+</bottomsheetdialog>
+
+<bottomsheetdialog id="btmdg-enter-admin">
+    <frame layout="linear_vertical" width="75" height="75" gravity="center">
+        <image src="https://img.icons8.com/external-itim2101-blue-itim2101/64/null/external-admin-devices-service-itim2101-blue-itim2101.png" width="match_parent" selfgravity="center">
+        </image>
+    </frame>
+    <frame layout="linear_vertical">
+        <text renderas="html" textcolor="#E64724" text="<b>ورود ادمین<\b>" textsize="18" textalignment="center">
+        </text>
+        <textInput id="tel-admin-input" text="" textColor="#000000" hint="نام کاربری"  width="250"></textInput>
+        <textInput id="pass-admin-input" text="" textColor="#000000" hint="رمز ورود"  width="250"></textInput>
+        <text renderas="html" textcolor="#E64724" text="<br/>" textsize="18" textalignment="center">
+        </text>
+    </frame>
+    <button text="ورود" borderCornerRadius="3" background="#E64724" onClick="script/todo-script:enterAdmin()" >
+    </button>
+</bottomsheetdialog>
+
+
+
+<bottomsheetdialog id="btmdg-add-sth">
+    <frame layout="linear_vertical" width="75" height="75" gravity="center">
+        <image src="https://img.icons8.com/external-itim2101-blue-itim2101/64/null/external-admin-devices-service-itim2101-blue-itim2101.png" width="match_parent" selfgravity="center">
+        </image>
+    </frame>
+    <frame layout="linear_vertical">
+        <text renderas="html" textcolor="#E64724" text="<b>اضاف<\b>" textsize="18" textalignment="center">
+        </text>
+        <textInput id="tel-admin-input" text="" textColor="#000000" hint="شماره تلفن"  width="250"></textInput>
+        <textInput id="pass-admin-input" text="" textColor="#000000" hint="رمز ورود"  width="250"></textInput>
+        <text renderas="html" textcolor="#E64724" text="<br/>" textsize="18" textalignment="center">
+        </text>
+    </frame>
+    <button text="ورود" borderCornerRadius="3" background="#E64724" onClick="script/todo-script:enterAdmin()" >
+    </button>
+</bottomsheetdialog>
+
+
+
+<bottomsheetdialog id="btmdg-add-admin">
+    <frame layout="linear_vertical" width="75" height="75" gravity="center">
+        <image src="https://img.icons8.com/external-itim2101-blue-itim2101/64/null/external-admin-devices-service-itim2101-blue-itim2101.png" width="match_parent" selfgravity="center">
+        </image>
+    </frame>
+    <frame layout="linear_vertical">
+        <text renderas="html" textcolor="#E64724" text="<b>افزودن ادمین<\b>" textsize="18" textalignment="center">
+        </text>
+        <textInput id="new-user-admin-input" text="" textColor="#000000" hint="نام کاربری"  width="250"></textInput>
+        <textInput id="new-pass-admin-input" text="" textColor="#000000" hint="رمز ورود"  width="250"></textInput>
+        <text renderas="html" textcolor="#E64724" text="<br/>" textsize="18" textalignment="center">
+        </text>
+    </frame>
+    <button text="افزودن" borderCornerRadius="3" background="#E64724" onClick="script/todo-script:addAdmin()" >
+    </button>
+</bottomsheetdialog>
+
+
+<bottomsheetdialog id="btmdg-add-depart">
+    <frame layout="linear_vertical" width="75" height="75" gravity="center">
+        <image src="https://img.icons8.com/external-itim2101-blue-itim2101/64/null/external-admin-devices-service-itim2101-blue-itim2101.png" width="match_parent" selfgravity="center">
+        </image>
+    </frame>
+    <frame layout="linear_vertical">
+        <text renderas="html" textcolor="#E64724" text="<b>افزودن بخش<\b>" textsize="18" textalignment="center">
+        </text>
+        <textInput id="new-depart-name-input" text="" textColor="#000000" hint="نام بخش"  width="250"></textInput>
+        <textInput id="new-employee-input" text="" textColor="#000000" hint="نام مسئول"  width="250"></textInput>
+        <textInput id="new-telephone input" text="" textColor="#000000" hint="شماره تفن"  width="250"></textInput>
+        <text renderas="html" textcolor="#E64724" text="<br/>" textsize="18" textalignment="center">
+        </text>
+    </frame>
+    <button text="افزودن" borderCornerRadius="3" background="#E64724" onClick="script/todo-script:addDepart()" >
+    </button>
+</bottomsheetdialog>
+
+<bottomsheetdialog id="btmdg-delete-depart">
+    <frame layout="linear_vertical" width="75" height="75" gravity="center">
+        <image src="https://img.icons8.com/color/48/null/delete-forever.png" width="match_parent" selfgravity="center">
+        </image>
+    </frame>
+    <frame layout="linear_vertical">
+        <text renderas="html" textcolor="#E64724" text="<b>آیا میخواهید این بخش را حذف کنید؟<\b>" textsize="18" textalignment="center">
+        </text>
+        <text renderas="html" textcolor="#E64724" text="<br/>" textsize="18" textalignment="center">
+        </text>
+    </frame>
+    <button text="حذف" borderCornerRadius="3" background="#E64724" onClick="script/todo-script:deleteDepart()" >
+    </button>
+</bottomsheetdialog>
+
+
+<snackbar text="نشد😞" duration="long" location="bottom" textColor="FF5733" id="snackbar">
+<!--<footer background="#E64724">
+    <frame layout="linear_vertical" background="#E64724" height="70">
+        <frame layout="linear_horizontal" gravity="center">
+            <frame layout="linear_vertical" margin_left="20" width="44" background="#E64724"  onclick=""  gravity="center">
+                <image src="https://img.icons8.com/external-bearicons-outline-color-bearicons/64/null/external-add-essential-collection-bearicons-outline-color-bearicons.png"
+                       borderCornerRadius="0" width="44" height="44" gravity="right" />
+                &lt;!&ndash;                    <text textsize="12" gravity="center" textcolor="white">پروفایل</text>&ndash;&gt;
+            </frame>
+            <frame layout="linear_vertical"  width="44" background="#E64724" onclick="" gravity="center">
+                <image src="https://img.icons8.com/external-inipagistudio-mixed-inipagistudio/64/null/external-add-distant-friend-inipagistudio-mixed-inipagistudio.png"
+                       borderCornerRadius="0" width="44" height="44" gravity="right" />
+                &lt;!&ndash;                    <text textsize="12" gravity="center" textcolor="white">نظرسنجی</text>&ndash;&gt;
+            </frame>
+            &lt;!&ndash;                <frame layout="linear_vertical"  background="#E64724" gravity="center">&ndash;&gt;
+            &lt;!&ndash;                    <image src="https://s2.uupload.ir/files/round_home_white_24dp_rq7x.png"&ndash;&gt;
+            &lt;!&ndash;                           borderCornerRadius="0" width="24" height="24" gravity="right"/>&ndash;&gt;
+            &lt;!&ndash;                    <text textsize="12" gravity="center" textcolor="white">خانه</text>&ndash;&gt;
+            &lt;!&ndash;                </frame>&ndash;&gt;
+        </frame>
+    </frame>
+</footer>-->
+
+
+
+

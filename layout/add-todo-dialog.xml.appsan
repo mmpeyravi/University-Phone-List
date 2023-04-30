@@ -1,0 +1,54 @@
+<bottomsheetdialog id="edit-todo-dialog" >
+    <frame height="wrap_content" layout="linear_vertical">
+        <text text="کار جدید"/>
+        <material-textInput id="nameL" margin_right="10" margin_left="10"  hint="تیتر" error="فیلد اجباری">
+            <textInput id="name" inputtype="text" onChange="script/edit-todo-dialog:check()"/>
+        </material-textInput>
+        <material-textinput id="descL" margin_right="10" margin_left="10"  hint="توضیح">
+            <textinput id="desc" inputtype="text" onChange="script/edit-todo-dialog:check()"/>
+        </material-textinput>
+        <text margin_right="10" margin_left="10" text="خطا در ثبت درخواست" textcolor="red" id="txtAddError" visibility="invisible"/>
+
+        <frame height="wrap_content">
+            <button gravity="center" textcolor="white" textsize="20" background="#146b3a" borderCornerRadius="5" id="addTodo"
+                    height="wrap_content" width="match_parent" margin="40" onclick="script/edit-todo-dialog-script:add()"
+                    text="تایید" />
+        </frame>
+    </frame>
+
+    <script id="edit-todo-dialog-script">
+        function disableButton() {
+            Appsan.setProperty('addTodo', 'enabled', 'false');
+            Appsan.setProperty('addTodo', 'background', '#adbaab');
+
+        }
+
+        function enableButton() {
+            Appsan.setProperty('addTodo', 'enabled', 'true');
+            Appsan.setProperty('addTodo', 'background', '#146b3a');
+
+        }
+
+        function add() {
+            Appsan.setProperty('txtAddError', 'visibility', 'gone');
+            disableButton();
+
+            HTTPClient.post('http://run-dev.integropia.com/api/addTodo?apikey=7625180613c82a429458b038e0abef27', {
+                name: Appsan.findElementById('name').value,
+                description: Appsan.findElementById('desc').value,
+                userId: Appsan.getBind('user/identifier')
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).subscribe(res => {
+                Appsan.runAction('app/closeDialog:edit-todo-dialog');
+                Appsan.runAction('script/todo-script:loadData()')
+            }, err => {
+                enableButton();
+                Appsan.setProperty('txtAddError', 'visibility', 'visible');
+            })
+        }
+    </script>
+
+</bottomsheetdialog>

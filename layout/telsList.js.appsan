@@ -1,0 +1,206 @@
+<script id="todo-script">
+    let tasks = [];
+
+    let admins = [];
+
+    function init() {
+        Appsan.setProperty('task-container', 'innerElements', `<progressbar/>`);
+        HTTPClient.get("http://run-dev.integropia.com/api/tst58xOYWv1.0?apiKey=tst76b376d9-f8fc-4c36-b7d9-23aa905733b5", null).subscribe(res => {
+            tasks = res;
+            createLayout()
+        }, error => {
+            console.log(error)
+            Appsan.setProperty('task-container', 'innerElements', `<button text="تلاش مجدد" onclick="script/todo-script:init()"/>`);
+        })
+
+        /*if (admins.includes({user: "09123456789", pass: "123456"})) {
+            Appsan.setProperty('icon-edit', 'visibility', 'visible');
+            Appsan.setVariable('isAdmin', '1');
+        } else {
+            Appsan.setProperty('icon-edit', 'visibility', 'hidden');
+            Appsan.setVariable('isAdmin', '0');
+        }*/
+        Appsan.setProperty('my-fab','src','https://img.icons8.com/neon/96/null/experimental-plus-math-neon.png');
+        if (Appsan.getVariable('isAdmin').value == '1') {
+
+            // Appsan.setProperty('list-title','padding-left','0');
+            //Appsan.setProperty('fab-container', 'innerElements', `<fab id="my-fab" src="https://img.icons8.com/neon/96/null/experimental-plus-math-neon.png" margin="10" align="bottom_left" onclick="dialog/btmdg-add-sth"/>`);
+            // Appsan.setProperty('my-fab','src','https://img.icons8.com/neon/96/null/experimental-plus-math-neon.png');
+            // Appsan.setProperty('my-fab','onclick','dialog/btmdg-add-sth');
+        }else {
+            Appsan.setProperty('add-admin-icon','visibility','gone');
+            Appsan.setProperty('add-depart-icon','visibility','gone');
+            //Appsan.setProperty('fab-container', 'innerElements', `<fab id="my-fab" src="https://img.icons8.com/external-itim2101-blue-itim2101/64/null/external-admin-devices-service-itim2101-blue-itim2101.png" margin="10" align="bottom_left" onclick="dialog/btmdg-enter-admin"/>`);
+        }
+        //Appsan.setVariable('isAdmin', '0');
+    }
+
+    function createLayout() {
+        let content = '';
+        for (const task of tasks) {
+            if (Appsan.getVariable('isAdmin').value == '1') {
+
+                content += `<frame layout="linear_horizontal" height="wrap_content" reverse="true" margin="7" padding="10"
+                   borderColor="#ebeff2" borderStrokeWidth="0.5" borderCornerRadius="5" weightsum="1">
+
+                <frame layout="linear_vertical" margin="0" weight="1" >
+                    <text textsize="27" height="wrap_content" textstyle="bold" textcolor="#146b3a" text="${task.dname}" gravity="center_right" margin_bottom="0" margin="0"/>
+                    <text textsize="18" height="wrap_content" textstyle="bold" textcolor="#a771a8" text="${task.employee_user}" gravity="center_right" margin_bottom="0" margin="0"/>
+                    <text margin_top="0" gravity="center_right" textsize="14" height="wrap_content" margin="0" text="${task.tel}"/>
+<!--                    <imagebutton margin_right="100" gravity="left" onClick="call/${task.tel}" src="https://img.icons8.com/external-sbts2018-outline-color-sbts2018/58/null/external-tel-basic-ui-elements-2.2-sbts2018-outline-color-sbts2018.png"/>-->
+<!--                    <imagebutton  margin_right="70" gravity="left" id="icon-edit" onClick="script/todo-script:editTask(${task.id})" src="https://img.icons8.com/cute-clipart/64/null/pencil.png"/>-->
+                    <frame id="icons-container" layout="linear_horizontal" reverse="false" width="wrap_content">
+                        <imagebutton margin_right="200" margin_left="20" id="icon-edit" onClick="script/todo-script:editTask(${task.id})" src="https://img.icons8.com/cute-clipart/64/null/pencil.png"/>
+                        <imagebutton margin_right="0" margin_left="20" onClick="dialog/btmdg-delete-depart" src="https://img.icons8.com/color/48/null/delete-forever.png"/>
+                        <imagebutton margin_right="0" margin_left="0" onClick="call/${task.tel}" src="https://img.icons8.com/dusk/64/null/phone-disconnected.png"/>
+
+                    </frame>
+                </frame>
+
+            </frame>`;
+            } else {
+                content += `
+                <frame layout="linear_horizontal" height="wrap_content" reverse="true" margin="5" padding="10"
+                   borderColor="#ebeff2" borderStrokeWidth="0.5" borderCornerRadius="5" weightsum="1">
+
+                <frame layout="linear_vertical" margin="0" weight="1" >
+                    <text textsize="27" height="wrap_content" textstyle="bold" textcolor="#146b3a" text="${task.dname}" gravity="center_right" margin_bottom="0" margin="0"/>
+                    <text textsize="18" height="wrap_content" textstyle="bold" textcolor="#a771a8" text="${task.employee_user}" gravity="center_right" margin_bottom="0" margin="0"/>
+                    <text margin_top="0" gravity="center_right" textsize="14" height="wrap_content" margin="0" text="${task.tel}"/>
+<!--                    <imagebutton margin_right="100" gravity="left" onClick="call/${task.tel}" src="https://img.icons8.com/external-sbts2018-outline-color-sbts2018/58/null/external-tel-basic-ui-elements-2.2-sbts2018-outline-color-sbts2018.png"/>-->
+<!--                    <imagebutton  margin_right="70" gravity="left" id="icon-edit" onClick="script/todo-script:editTask(${task.id})" src="https://img.icons8.com/cute-clipart/64/null/pencil.png"/>-->
+                    <frame id="icons-container" layout="linear_horizontal" reverse="false" width="wrap_content">
+<!--                        <imagebutton margin_right="200" margin_left="40" id="icon-edit" onClick="script/todo-script:editTask(${task.id})" src="https://img.icons8.com/cute-clipart/64/null/pencil.png"/>-->
+                        <imagebutton margin_right="310" margin_left="40" onClick="call/${task.tel}" src="https://img.icons8.com/dusk/64/null/phone-disconnected.png"/>
+                    </frame>
+                </frame>
+
+            </frame>
+            `;
+            }
+        }
+
+        Appsan.setProperty('task-container', 'innerElements', content);
+
+
+    }
+
+    function editTask(id) {
+        Appsan.setVariable('selectedTask', tasks.find(t => t.id === id));
+        Appsan.setVariable('selectedId', id);
+        Appsan.setProperty('depart-name-input', 'text', tasks.find(t => t.id === id).dname);
+        Appsan.setProperty('employee-input', 'text', tasks.find(t => t.id === id).employee_user);
+        Appsan.setProperty('telephone input', 'text', tasks.find(t => t.id === id).tel);
+        Appsan.runAction('dialog/btmdg-edit-tel');
+
+    }
+
+    function doEdit() {
+        HTTPClient.post('http://run-dev.integropia.com/api/tst3Er7Z9v1.0?apiKey=tst7c5ed539-480c-4512-93c9-876d5f079f3d', {
+            dname: Appsan.findElementById('depart-name-input').value,
+            tel: Appsan.findElementById('telephone input').value,
+            info: "",
+            //Appsan.getBind('user/identifier')
+            address: "",
+            admin_user: "",
+            employee_user: Appsan.findElementById('employee-input').value,
+            id: Appsan.getVariable('selectedId').value
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).subscribe(res => {
+            Appsan.runAction('app/closeDialog');
+            Appsan.runAction('page/tels-list');
+            /*Appsan.runAction('app/closeDialog:edit-todo-dialog');
+            Appsan.runAction('script/todo-script:loadData()')*/
+        }, err => {
+            Appsan.runAction('snackbar/snackbar');
+            /*enableButton();
+            Appsan.setProperty('txtAddError', 'visibility', 'visible');*/
+        })
+
+
+    }
+
+    function enterAdmin() {
+        HTTPClient.get('http://run-dev.integropia.com/api/getUser?apikey=c46c982cb33c8790f025a64a4f0b68d6',, null /*{
+            username: Appsan.findElementById('tel-admin-input').value,
+            pass: Appsan.findElementById('pass-admin-input').value
+        }*/, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).subscribe(res => {
+            let st='';
+            for (const dep of res) {
+             //   st+=dep.username;
+                if (dep.username == Appsan.findElementById('tel-admin-input').value){
+                    if (dep.pass==Appsan.findElementById('pass-admin-input').value){
+                        Appsan.setVariable('isAdmin', '1');
+                    }
+                }
+            }
+            Appsan.runAction('app/closeDialog');
+            Appsan.runAction('page/tels-list');
+        }, err => {
+            Appsan.runAction('snackbar/snackbar');
+
+        })
+
+    }
+    function deleteDepart(id) {
+        HTTPClient.post('http://run-dev.integropia.com/api/tst6EbBvEv1.0?apiKey=tst04564f3a-9c19-4f3e-b033-dd6bfd152213', {
+            username: Appsan.findElementById('tel-admin-input').value,
+            pass: Appsan.findElementById('pass-admin-input').value
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).subscribe(res => {
+            Appsan.runAction('app/closeDialog');
+            Appsan.runAction('page/tels-list');
+        }, err => {
+            Appsan.runAction('snackbar/snackbar');
+        })
+    }
+
+    function addDepart() {
+        HTTPClient.post('http://run-dev.integropia.com/api/tsta8lNa9v1.0?apiKey=tst8e6d68f6-72d4-4e9e-a91f-e101b2d1fc6a', {
+            dname: Appsan.findElementById('new-depart-name-input').value,
+            tel: Appsan.findElementById('new-telephone input').value,
+            info: "",
+            address: "",
+            admin_user: "",
+            employee_user: Appsan.findElementById('new-employee-input').value
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).subscribe(res => {
+            Appsan.runAction('app/closeDialog');
+            Appsan.runAction('page/tels-list');
+        }, err => {
+            Appsan.runAction('snackbar/snackbar');
+        })
+
+    }
+    function addAdmin() {
+        HTTPClient.post('http://run-dev.integropia.com/api/add-admin?apikey=c46c982cb33c8790f025a64a4f0b68d6', {
+            username: Appsan.findElementById('new-user-admin-input').value,
+            pass: Appsan.findElementById('new-pass-admin-input').value,
+            permission:"administrator",
+            lname:""
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).subscribe(res => {
+            Appsan.runAction('app/closeDialog');
+            Appsan.runAction('page/tels-list');
+        }, err => {
+            Appsan.runAction('snackbar/snackbar');
+        })
+
+    }
+</script>

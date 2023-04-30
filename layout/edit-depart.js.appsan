@@ -1,0 +1,47 @@
+<!--
+<script id="edit-depart-script">
+    let tasks = [];
+
+    function init() {
+        Appsan.setProperty('task-id', 'innerElements', `<progressbar/>`);
+        /*HTTPClient.get("http://run-dev.integropia.com/api/showDepartList?apikey=c46c982cb33c8790f025a64a4f0b68d6", null).subscribe(res => {
+            tasks = res;
+            createLayout()
+        }, error => {
+            console.log(error)
+            Appsan.setProperty('task-container', 'innerElements', `<button text="تلاش مجدد" onclick="script/todo-script:init()"/>`);
+        })*/
+    }
+
+    function createLayout() {
+        let content = '';
+        for (const task of tasks) {
+            content += `
+&lt;!&ndash;<card height="wrap_content" width="wrap_content" margin="50" gravity="center" toolbarColor="D1BB2A">&ndash;&gt;
+&lt;!&ndash;       <text textcolor="E64724" textsize="20" gravity="center_right">${task.dname}</text>&ndash;&gt;
+&lt;!&ndash;      <button textcolor="#FFDDCE"  background="#E64724" borderCornerRadius="10"  width="250">خروج</button>&ndash;&gt;
+&lt;!&ndash;    </card>&ndash;&gt;
+                <frame layout="linear_horizontal" height="175" reverse="true" margin="7" padding="10"
+                   borderColor="#ebeff2" borderStrokeWidth="0.5" borderCornerRadius="5" weightsum="1">
+
+
+                <frame layout="linear_vertical" margin="0" width="wrap_content" weight="1" >
+                    <text textsize="17" height="wrap_content" textstyle="bold" textcolor="#146b3a" text="${task.dname}" gravity="center_right" margin_bottom="0" margin="0"/>
+                    <text margin_top="0" gravity="center_right" textsize="14" height="wrap_content" margin="0" text="${task.tel}"/>
+                </frame>
+                <frame layout="linear_horizontal" reverse="true" width="wrap_content">
+&lt;!&ndash;                    <checkbox></checkbox>&ndash;&gt;
+                    <imagebutton onclick="script/todo-script:editTask(${task.id})" src="images/edit_FILL0_wght400_GRAD0_opsz48.png"/>
+                </frame>
+            </frame>
+            `;
+        }
+        Appsan.setProperty('task-container', 'innerElements', content);
+    }
+
+    function editTask(id) {
+        Appsan.setVariable('selectedTask', tasks.find(t => t.id === id));
+        Appsan.runAction('page/edit-depart');
+    }
+</script>
+-->
